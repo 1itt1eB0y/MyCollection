@@ -1,0 +1,22 @@
+version: "3"
+services:
+  headscale:
+    container_name: headscale
+    restart: always
+    environment:
+      - TZ=UTC+8
+      - GIN_MODE=release
+    image: headscale/headscale:latest
+    ports:
+    # - 443:443/tcp
+      - 8080:8080/tcp
+      - 127.0.0.1:9090:9090/tcp
+      - 3456:3456/tcp
+      - 3456:3456/udp
+      - 12345:12345/tcp
+      - 12345:12345/udp
+    volumes:
+      - /root/docker/headscale/config:/etc/headscale/
+    command:
+      - headscale
+      - serve
