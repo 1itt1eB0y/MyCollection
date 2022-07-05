@@ -1,0 +1,12 @@
+regions:
+  999:
+    regionid: 999
+    regioncode: headscale
+    regionname: Headscale Embedded DERP
+    nodes:
+      - name: 999
+        regionid: 999
+        hostname: derp.example.com
+        stunport: 3478
+        stunonly: false
+        derpport: 443
