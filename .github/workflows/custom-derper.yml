@@ -13,14 +13,14 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
-      - 
-        name: Clone Git Repo
-        run: |
-          git clone https://github.com/1itt1eB0y/MyCollection.git
-          mv MyCollection/docker/derper/* ./
-          rm -rf MyCollection
-          ls
-          pwd
+#       - 
+#         name: Clone Git Repo
+#         run: |
+#           git clone https://github.com/1itt1eB0y/MyCollection.git
+#           mv MyCollection/docker/derper/* ./
+#           rm -rf MyCollection
+#           ls
+#           pwd
       -
         name: Checkout
         uses: actions/checkout@v2
@@ -46,7 +46,7 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: .
+          context: ./docker/derper/
           platforms: linux/amd64,linux/arm64
           push: true
           tags: adobe17/derper:latest
