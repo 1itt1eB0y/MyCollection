@@ -3,10 +3,10 @@ services:
   derper:
     container_name: derper
     restart: always
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: derper:latest
+#     build:
+#       context: .
+#       dockerfile: Dockerfile
+    image: adobe17/derper:latest
     ports:
       - 443:443/tcp
       - 3478:3478/udp
@@ -16,6 +16,6 @@ services:
       -hostname derp.example.com
       -certdir /app/certs
       -certmode manual
-      -a :61255
-      -stun-port 61255
+      -a :443
+      -stun-port 3478
       -http-port -1
