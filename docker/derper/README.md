@@ -14,6 +14,12 @@ docker-compose up -d
 
 https://tailscale.com/kb/1118/custom-derp-servers/#monitoring-custom-derps
 
+```bash
+wget https://raw.githubusercontent.com/1itt1eB0y/MyCollection/master/docker/derper/derpprobe
+chmod 755 derpprobe
+./derpprobe -derp-map http://127.0.0.1/testDERP.json -listen :1000
+```
+
 testDERP.json
 ```json
 {
