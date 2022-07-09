@@ -20,6 +20,7 @@ jobs:
           mv MyCollection/docker/derper/* ./
           rm -rf MyCollection
           ls
+          pwd
       -
         name: Checkout
         uses: actions/checkout@v2
