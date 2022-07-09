@@ -1,0 +1,21 @@
+version: "3"
+services:
+  derper:
+    container_name: derper
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: derper:latest
+    ports:
+      - 443:443/tcp
+      - 3478:3478/udp
+    volumes:
+      - <certdir>:/app/certs
+    command:
+      -hostname derp.example.com
+      -certdir /app/certs
+      -certmode manual
+      -a :61255
+      -stun-port 61255
+      -http-port -1
