@@ -1,4 +1,4 @@
-name: Custom DERPer
+name: Custom DERPer Docker
 
 on:
   workflow_dispatch:
@@ -19,6 +19,7 @@ jobs:
           git clone https://github.com/1itt1eB0y/MyCollection.git
           mv MyCollection/docker/derper/* ./
           rm -rf MyCollection
+          ls
       -
         name: Checkout
         uses: actions/checkout@v2
