@@ -1,6 +1,8 @@
 # Custom Tailscale DERP Server
 
-edit `docker-compose.yml` as you need, then run
+If you want to run with `-verify-clients` option, you must volume `/var/run/tailscale/tailscaled.sock`.
+
+Edit `docker-compose.yml` as you need, then run
 
 ```bash
 docker-compose up -d
@@ -8,7 +10,7 @@ docker-compose up -d
 
 > Notice: 
 > 
-> Manual cert will search `<certdir>/<hostname>.crt` and `<certdir>/<hostname>.key` automaticlly, cp and rename your Let's Encrypt `pem` files to `crt` and `key`
+> Manual cert will search `<certdir>/<hostname>.crt` and `<certdir>/<hostname>.key` automaticlly, copy a renamed copy, or `ln -P` your Let's Encrypt `pem` files to `crt` and `key`
 
 # Test your DERP server
 
