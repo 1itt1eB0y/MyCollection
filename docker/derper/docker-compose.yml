@@ -12,6 +12,7 @@ services:
       - 3478:3478/udp
     volumes:
       - <certdir>:/app/certs
+      # - /var/run/tailscale/tailscaled.sock:/var/run/tailscale/tailscaled.sock # For `-verify-clients` option
     command:
       -hostname derp.example.com
       -certdir /app/certs
@@ -19,3 +20,4 @@ services:
       -a :443
       -stun-port 3478
       -http-port -1
+      -verify-clients
