@@ -23,6 +23,8 @@ chmod 755 derpprobe
 ```
 
 testDERP.json
+
+You can copy and paste this json to Official ACL's derpMap section.
 ```json
 {
   "Regions": {
@@ -38,6 +40,30 @@ testDERP.json
         "DERPPort": 443,
         "STUNPort": 3478
       }]
+    }
+  }
+}
+```
+
+ACL EXAMPLE https://tailscale.com/kb/1118/custom-derp-servers/#step-2-adding-derp-servers-to-your-tailnet
+```json
+{
+  // ... other parts of ACL/Policy JSON
+  "derpMap": {
+    "Regions": {
+      "999": {
+        "RegionID": 999,
+        "RegionCode": "custom",
+        "RegionName": "My Custom Derp",
+        "Nodes": [{
+          "Name": "1",
+          "RegionID": 999,
+          "HostName":"derp.example.com",
+          "IPv4":"1.1.1.1",
+          "DERPPort": 443,
+          "STUNPort": 3478
+        }]
+      }
     }
   }
 }
