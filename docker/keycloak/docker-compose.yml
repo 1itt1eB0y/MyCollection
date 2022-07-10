@@ -1,0 +1,30 @@
+version: "3"
+services:
+
+  keycloak:
+    image: bitnami/keycloak
+    ports:
+      - 8080:8080
+    environment:
+      KEYCLOAK_DATABASE_USER: keycloak
+      KEYCLOAK_DATABASE_PASSWORD: password
+      KEYCLOAK_ADMIN_USER: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    depends_on:
+      - postgresql
+
+  postgresql:
+    image: postgres
+    # ports:
+    #   - 5432:5432
+    volumes:
+      - ./pgsqldata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready -U keycloak"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    environment:
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: bitnami_keycloak
