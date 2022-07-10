@@ -1,0 +1,21 @@
+version: "3"
+services:
+  storage:
+    image: minio/minio:latest
+    ports:
+      - 9000:9000
+      - 9001:9001
+    env_file: ./docker.env
+    command: minio server /data --console-address 0.0.0.0:9001
+    deploy:
+      restart_policy:
+        condition: on-failure
+    volumes:
+      - storage-data:/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+volumes:
+  storage-data:
