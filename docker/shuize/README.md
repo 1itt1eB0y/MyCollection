@@ -5,3 +5,8 @@ https://github.com/0x727/ShuiZe_0x727
 ```bash
 docker-compose up
 ```
+
+如果不想用`docker-compose`运行，可以使用如下命令
+```bash
+docker run -it -v <localdir>:/ShuiZe_0x727/iniFile -v <localdir>:/ShuiZe_0x727/result --name shuize shuize:latest <shuize 参数>
+```
