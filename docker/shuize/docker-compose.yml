@@ -1,0 +1,13 @@
+version: "3"
+services:
+  shuize:
+    container_name: shuize
+    image: shuize:latest
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./iniFile:/ShuiZe_0x727/iniFile
+      - ./result:/ShuiZe_0x727/result
+    command:
+      -d baidu.com
