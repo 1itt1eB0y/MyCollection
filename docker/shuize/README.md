@@ -7,6 +7,12 @@ docker-compose up
 ```
 
 如果不想用`docker-compose`运行，可以使用如下命令
+
+构建
+```bash
+docker build -f Dockerfile . -t shuize:latest
+```
+运行
 ```bash
 docker run -it -v <localdir>:/ShuiZe_0x727/iniFile -v <localdir>:/ShuiZe_0x727/result --name shuize shuize:latest <shuize 参数>
 ```
