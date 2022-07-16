@@ -7,7 +7,7 @@ on:
       - 'main'
 
 env:
-  TEST_TAG: adobe17/derper:test
+  TEST_TAG: 1itt1eb0y/derper:test
 
 jobs:
   docker:
@@ -41,7 +41,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: docker.io/${{ secrets.DOCKER_HUB_USER }}/derper
+          images: docker.io/1itt1eb0y/derper
       -
         name: Build and push
         uses: docker/build-push-action@v3
@@ -49,4 +49,4 @@ jobs:
           context: ./docker/derper/
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: adobe17/derper:latest
+          tags: 1itt1eb0y/derper:latest
