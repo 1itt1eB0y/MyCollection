@@ -50,4 +50,4 @@ jobs:
           context: ./docker/shuize/
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: 1itt1eB0y/${{ env.CONTAINER_NAME }}:latest
+          tags: ${{ secrets.DOCKER_HUB_USER }}/${{ env.CONTAINER_NAME }}:latest
