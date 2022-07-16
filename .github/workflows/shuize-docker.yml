@@ -42,7 +42,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: docker.io/${{ secrets.DOCKER_HUB_USER }}/${{ env.CONTAINER_NAME }}
+          images: docker.io/1itt1eb0y/${{ env.CONTAINER_NAME }}
       -
         name: Build and push
         uses: docker/build-push-action@v3
@@ -50,4 +50,4 @@ jobs:
           context: ./docker/shuize/
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USER }}/${{ env.CONTAINER_NAME }}:latest
+          tags: 1itt1eb0y/${{ env.CONTAINER_NAME }}:latest
