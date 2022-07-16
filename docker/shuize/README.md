@@ -1,6 +1,18 @@
 # ShuiZe信息搜集工具
 https://github.com/0x727/ShuiZe_0x727
 
+
+# 使用已构建镜像
+
+镜像地址：https://hub.docker.com/repository/docker/1itt1eb0y/shuize
+
+```bash
+docker run --rm -it -v $(pwd)/iniFile:/ShuiZe_0x727/iniFile -v $(pwd)/result:/ShuiZe_0x727/result --name shuize 1itt1eb0y/shuize:latest <shuize 参数>
+```
+---
+
+## 自行构建镜像
+
 修改`docker-compose.yml`中`command`命令内容后通过如下命令即可直接执行
 ```bash
 docker-compose up
