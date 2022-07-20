@@ -10,6 +10,11 @@ https://github.com/0x727/ShuiZe_0x727
 ```bash
 docker run --rm -it -v $(pwd)/iniFile:/ShuiZe_0x727/iniFile -v $(pwd)/result:/ShuiZe_0x727/result --name shuize 1itt1eb0y/shuize:latest <shuize 参数>
 ```
+或
+```bash
+chmod +x ./shuize.sh
+./shuize.sh <shuize 参数>
+```
 如需后台运行可以将`-it`参数换成`-itd`参数
 
 ---
