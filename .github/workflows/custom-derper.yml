@@ -42,6 +42,13 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: docker.io/1itt1eb0y/derper
+      - 
+        name: Get Time
+        id: time
+        uses: nanzm/get-time-action@v1.1
+        with:
+          timeZone: 8
+          format: 'YYYY-MM-DD-HH-mm-ss'
       -
         name: Build and push
         uses: docker/build-push-action@v3
@@ -49,4 +56,6 @@ jobs:
           context: ./docker/derper/
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: 1itt1eb0y/derper:latest
+          tags: |
+            1itt1eb0y/derper:latest
+            1itt1eb0y/derper:${{ steps.time.outputs.time }}
