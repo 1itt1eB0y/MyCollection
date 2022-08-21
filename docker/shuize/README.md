@@ -5,7 +5,7 @@ https://github.com/0x727/ShuiZe_0x727
 
 > 使用`Github Actions`构建的，可直接前往本项目的`Actions`页面查看
 
-镜像地址：https://hub.docker.com/repository/docker/1itt1eb0y/shuize
+镜像地址：https://hub.docker.com/r/1itt1eb0y/shuize
 
 ```bash
 docker run --rm -it -v $(pwd)/iniFile:/ShuiZe_0x727/iniFile -v $(pwd)/result:/ShuiZe_0x727/result --name shuize 1itt1eb0y/shuize:latest <shuize 参数>
