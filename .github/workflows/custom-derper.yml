@@ -5,6 +5,8 @@ on:
   push:
     branches:
       - 'main'
+  schedule:
+    - cron: "0 0 */3 * *"
 
 env:
   TEST_TAG: 1itt1eb0y/derper:test
