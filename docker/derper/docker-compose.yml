@@ -6,7 +6,7 @@ services:
 #     build:
 #       context: .
 #       dockerfile: Dockerfile
-    image: adobe17/derper:latest
+    image: 1itt1eb0y/derper:latest
     ports:
       - 443:443/tcp
       - 3478:3478/udp
