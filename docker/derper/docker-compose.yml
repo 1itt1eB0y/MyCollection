@@ -20,4 +20,4 @@ services:
       -a :443
       -stun-port 3478
       -http-port -1
-      -verify-clients
+      # -verify-clients
