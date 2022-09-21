@@ -16,13 +16,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       -
-         name: Clone Git Repo
-         run: |
-           git clone https://github.com/AykutSarac/jsoncrack.com.git
-           mv jsoncrack.com/* ./
-           ls -lah
-           pwd
-      -
         name: Checkout
         uses: actions/checkout@v2
       -
@@ -54,7 +47,7 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v3
         with:
-          build-contexts: project=https://github.com/myuser/project.git
+          context: https://github.com/AykutSarac/jsoncrack.com.git
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
