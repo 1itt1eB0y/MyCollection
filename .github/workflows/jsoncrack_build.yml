@@ -54,7 +54,7 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: /home/runner/work/MyCollection/MyCollection
+          build-contexts: project=https://github.com/myuser/project.git
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
