@@ -9,7 +9,7 @@ on:
     - cron: "0 0 */7 * *"
 
 env:
-  TEST_TAG: 1itt1eb0y/jasoncrack:test
+  TEST_TAG: 1itt1eb0y/jsoncrack:test
 
 jobs:
   docker:
@@ -43,7 +43,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: docker.io/1itt1eb0y/jasoncrack
+          images: docker.io/1itt1eb0y/jsoncrack
       - 
         name: Get Time
         id: time
@@ -55,9 +55,9 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: ./docker/jasoncrack/
+          context: ./docker/jsoncrack/
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            1itt1eb0y/jasoncrack:latest
-            1itt1eb0y/jasoncrack:${{ steps.time.outputs.time }}
+            1itt1eb0y/jsoncrack:latest
+            1itt1eb0y/jsoncrack:${{ steps.time.outputs.time }}
