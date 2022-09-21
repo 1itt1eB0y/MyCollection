@@ -23,6 +23,8 @@ chmod +x ./shuize.sh
 
 > 使用Actions构建时，所耗费时间较长（1h），如需自行构建，推荐在Github Codespaces下构建（约10分钟），网络连接好，算力相对较高
 
+> 也可将`Dockerfile.withoutgit`放在ShuiZe目录下，并重命名为`Dockerfile`后进行手动构建，如有不懂问题请先行Google Docker用法
+
 ### 手动编译镜像
 
 ```bash
