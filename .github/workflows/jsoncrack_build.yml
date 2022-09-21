@@ -15,14 +15,16 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
-#       -
-#         name: Clone Git Repo
-#         run: |
-#          git clone https://github.com/AykutSarac/jsoncrack.com.git
-#          mv jsoncrack.com/* ./
-#          rm -rf MyCollection
-#          ls
-#          pwd
+      -
+         name: Clone Git Repo
+         run: |
+           git clone https://github.com/AykutSarac/jsoncrack.com.git
+           ls
+           mv jsoncrack.com/* ./
+           ls
+           rm -rf MyCollection
+           ls
+           pwd
       -
         name: Checkout
         uses: actions/checkout@v2
