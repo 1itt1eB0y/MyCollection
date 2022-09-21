@@ -1,8 +1,7 @@
 # Builder
 FROM node:14-buster as builder
-RUN git clone https://github.com/AykutSarac/jsoncrack.com.git
 WORKDIR /src
-COPY ./jsoncrack/* /src
+COPY . /src
 RUN yarn install --legacy-peer-deps
 RUN yarn run build
 
