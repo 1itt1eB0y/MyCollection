@@ -19,11 +19,8 @@ jobs:
          name: Clone Git Repo
          run: |
            git clone https://github.com/AykutSarac/jsoncrack.com.git
-           ls
            mv jsoncrack.com/* ./
-           ls
-           rm -rf MyCollection
-           ls
+           ls -lah
            pwd
       -
         name: Checkout
@@ -57,7 +54,7 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: ./docker/jsoncrack/
+          context: .
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
