@@ -2,7 +2,7 @@ name: Custom ShuiZe Docker
 
 on:
   schedule:
-    - cron: "0 0 */7 * *"
+    - cron: "0 0 */14 * *"
   workflow_dispatch:
   push:
     branches:
