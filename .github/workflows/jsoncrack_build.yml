@@ -1,4 +1,4 @@
-name: JasonCrack AutoBuild
+name: JsonCrack AutoBuild
 
 on:
   workflow_dispatch:
