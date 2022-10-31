@@ -7,6 +7,12 @@ https://github.com/0x727/ShuiZe_0x727
 
 **注：本项目中提供的所有运行方式均默认自带`-v $(pwd)/iniFile:/ShuiZe_0x727/iniFile`参数，如使用默认配置，此项命令可移除**
 
+## Docker基础
+
+菜鸟教程：https://www.runoob.com/docker/docker-tutorial.html
+
+官方教程：https://docs.docker.com/get-started/
+
 ## 使用已构建镜像
 
 > 使用`Github Actions`构建的，可直接前往本项目的`Actions`页面查看
@@ -14,7 +20,12 @@ https://github.com/0x727/ShuiZe_0x727
 镜像地址：https://hub.docker.com/r/1itt1eb0y/shuize
 
 ```bash
-docker run --rm -it -v $(pwd)/iniFile:/ShuiZe_0x727/iniFile -v $(pwd)/result:/ShuiZe_0x727/result --name shuize 1itt1eb0y/shuize:latest <shuize 参数>
+docker run --rm -it \
+    -v $(pwd)/iniFile:/ShuiZe_0x727/iniFile \
+    -v $(pwd)/result:/ShuiZe_0x727/result \
+    --name shuize \
+    1itt1eb0y/shuize:latest \
+    <shuize 参数>
 ```
 或
 ```bash
@@ -42,9 +53,4 @@ docker build -f Dockerfile . -t shuize:latest
 修改`docker-compose.yml`中`command`命令内容后通过如下命令即可直接执行
 ```bash
 docker-compose up
-```
-
-运行方法同上
-```bash
-docker run --rm -it -v $(pwd)/iniFile:/ShuiZe_0x727/iniFile -v $(pwd)/result:/ShuiZe_0x727/result --name shuize shuize:latest <shuize 参数>
 ```
