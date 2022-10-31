@@ -5,7 +5,7 @@ https://github.com/0x727/ShuiZe_0x727
 
 如需使用快代理等其他需要文件配置的`iniFile/`文件夹下的功能，务必使用`-v $(pwd)/iniFile:/ShuiZe_0x727/iniFile`参数将本地文件映射到容器内。
 
-**注：本项目中提供的所有运行方式均默认自带`-v $(pwd)/iniFile:/ShuiZe_0x727/iniFile`参数，如使用默认配置，此项命令可移除**
+**注：本项目中提供的所有运行方式均默认自带`-v $(pwd)/iniFile:/ShuiZe_0x727/iniFile`参数，如使用默认配置，此项命令需移除，否则将会置空容器中的`iniFile`目录导致无法运行。**
 
 ## Docker基础
 
