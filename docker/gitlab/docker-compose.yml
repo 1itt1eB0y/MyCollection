@@ -1,0 +1,20 @@
+version: '3.6'
+services:
+  web:
+    image: 1itt1eb0y/gitlab-ee:latest
+    # build: .
+    restart: always
+    hostname: 127.0.0.1
+    network_mode: bridge
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'http://127.0.0.1:8929'
+        gitlab_rails['gitlab_shell_ssh_port'] = 2224
+    ports:
+      - 8929:8929
+      - 2224:22
+    volumes:
+      - ./config:/etc/gitlab
+      - ./logs:/var/log/gitlab
+      - ./data:/var/opt/gitlab
+      - ./crack/license_key.pub:/opt/gitlab/embedded/service/gitlab-rails/.license_encryption_key.pub
