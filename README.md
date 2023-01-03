@@ -15,4 +15,6 @@
 
 `/wiki` 个人简单技术wiki
 
+`/actions` Actions文件目录
+
 Text in English will be come ***very*** soon.
