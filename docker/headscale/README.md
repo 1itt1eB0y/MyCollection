@@ -2,8 +2,6 @@
 
 official github: <https://github.com/juanfont/headscale>
 
-my Chinese tutorial: 
-
 No english version tutorial, but you can check another tutorial here: <https://leffler.tech/tags/headscale/>
 
 # steps

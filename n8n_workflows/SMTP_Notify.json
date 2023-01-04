@@ -1,0 +1,291 @@
+{
+    "meta": {
+        "instanceId": "4a8cab23f806ec1b8962adc8b94bc2de1287b6bd6da9fa513b898bbb78d6782b"
+    },
+    "nodes": [
+        {
+            "parameters": {
+                "mode": "runOnceForEachItem",
+                "jsCode": "let originText=$json.text;\nlet username = originText.match(\"\\\\n(.*?)，\")[1];\nlet verifyCode = originText.match(\"\\\\n([0-9A-Z]{5})\\\\n\")[1];\nlet ip = originText.match(\"(25[0-5]|2[0-4]\\d|[01]?\\d\\d?\\.){3}(25[0-5]|2[0-4]\\d|[01]?\\d\\d?)\");\nlet time = $json.headers.date.slice(6);\nip = ip ? ip: \"NULL\";\n\nreturn {\n  json: {\n    username: username,\n    code: verifyCode,\n    ip: ip,\n    time: time\n  }\n}\n"
+            },
+            "id": "130ecd6b-849e-45b4-bd70-01e5837f0d66",
+            "name": "Code",
+            "type": "n8n-nodes-base.code",
+            "typeVersion": 1,
+            "position": [
+                180,
+                400
+            ]
+        },
+        {
+            "parameters": {
+                "format": "resolved",
+                "options": {
+                    "customEmailConfig": "[\"NEW\",[\"FROM\",\"noreply@steampowered.com\"]]",
+                    "forceReconnect": 1
+                }
+            },
+            "id": "f5aef938-36f7-4bc0-bca4-4913a7a60050",
+            "name": "IMAP Email",
+            "type": "n8n-nodes-base.emailReadImap",
+            "typeVersion": 2,
+            "position": [
+                -240,
+                560
+            ],
+            "credentials": {
+                "imap": {
+                    "id": "6",
+                    "name": "QQ邮箱收件"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "method": "POST",
+                "url": "https://n8n.1itt1eb0y.com:50443/webhook/wechatwork",
+                "authentication": "genericCredentialType",
+                "genericAuthType": "httpHeaderAuth",
+                "sendBody": true,
+                "specifyBody": "json",
+                "jsonBody": "={{JSON.stringify($json)}}",
+                "options": {}
+            },
+            "id": "156c92ac-ee1f-45fa-a05d-008d71a2bbcb",
+            "name": "HTTP-企业微信推送",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 3,
+            "position": [
+                740,
+                580
+            ],
+            "credentials": {
+                "httpHeaderAuth": {
+                    "id": "4",
+                    "name": "企业微信推送token"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "keepOnlySet": true,
+                "values": {
+                    "string": [
+                        {
+                            "name": "type",
+                            "value": "text"
+                        },
+                        {
+                            "name": "content",
+                            "value": "=Steam验证码：{{$json[\"code\"]}}\n{{$json[\"username\"]}}\nIP：{{$json[\"ip\"]}}\n{{$json[\"time\"]}}"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "id": "a71e72e6-31db-4f19-b8db-85f6abd4e74a",
+            "name": "Set",
+            "type": "n8n-nodes-base.set",
+            "typeVersion": 1,
+            "position": [
+                500,
+                400
+            ]
+        },
+        {
+            "parameters": {
+                "dataType": "string",
+                "value1": "={{ $json[\"subject\"] }}",
+                "rules": {
+                    "rules": [
+                        {
+                            "operation": "contains",
+                            "value2": "您的 Steam 帐户：来自新"
+                        },
+                        {
+                            "operation": "contains",
+                            "value2": "Access from new"
+                        },
+                        {
+                            "operation": "contains",
+                            "value2": "正在特卖",
+                            "output": 1
+                        },
+                        {
+                            "operation": "contains",
+                            "value2": "on sale",
+                            "output": 1
+                        }
+                    ]
+                }
+            },
+            "id": "0ca20ac9-e29f-4578-8ac9-c92c4108a6f7",
+            "name": "Switch",
+            "type": "n8n-nodes-base.switch",
+            "typeVersion": 1,
+            "position": [
+                -40,
+                560
+            ],
+            "notesInFlow": true,
+            "notes": "0：两步验证\n1：特卖信息"
+        },
+        {
+            "parameters": {
+                "dataPropertyName": "html",
+                "extractionValues": {
+                    "values": [
+                        {
+                            "key": "price",
+                            "cssSelector": ".me-left tbody tr td.text-14",
+                            "returnArray": true
+                        },
+                        {
+                            "key": "name",
+                            "cssSelector": "td:nth-child(1) > a:nth-child(1) > img:nth-child(1)",
+                            "returnValue": "attribute",
+                            "attribute": "title",
+                            "returnArray": true
+                        }
+                    ]
+                },
+                "options": {
+                    "trimValues": true
+                }
+            },
+            "id": "01a9e2c4-238b-4911-a786-d2ac5dbd327b",
+            "name": "HTML Extract",
+            "type": "n8n-nodes-base.htmlExtract",
+            "typeVersion": 1,
+            "position": [
+                160,
+                720
+            ]
+        },
+        {
+            "parameters": {
+                "mode": "runOnceForEachItem",
+                "jsCode": "let game_name = $json.name.filter(element => {\n  return element !== null;\n});\nconsole.log(game_name);\nlet content = [];\n// console.log($json.price);\nfor (let index = 0; index < $json.price.length/2;index++) {\n  content.push(game_name[index] + \"\\n\" + $json.price[index * 2] + \" || \" + $json.price[index * 2 + 1]);\n}\n\n// console.log(content);\nreturn {\n  json:{\n    content\n  } \n};"
+            },
+            "id": "16271865-ae78-487e-adb1-e5c4681cad36",
+            "name": "Code1",
+            "type": "n8n-nodes-base.code",
+            "typeVersion": 1,
+            "position": [
+                340,
+                720
+            ]
+        },
+        {
+            "parameters": {
+                "values": {
+                    "string": [
+                        {
+                            "name": "type",
+                            "value": "text"
+                        },
+                        {
+                            "name": "content",
+                            "value": "=Steam折扣促销\n=================\n{{$json.content.join(\"\\n\\n\")}}"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "id": "616397d8-7260-40d2-9955-6d80da0985fa",
+            "name": "Set1",
+            "type": "n8n-nodes-base.set",
+            "typeVersion": 1,
+            "position": [
+                540,
+                720
+            ]
+        }
+    ],
+    "connections": {
+        "Code": {
+            "main": [
+                [
+                    {
+                        "node": "Set",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "IMAP Email": {
+            "main": [
+                [
+                    {
+                        "node": "Switch",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Set": {
+            "main": [
+                [
+                    {
+                        "node": "HTTP-企业微信推送",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Switch": {
+            "main": [
+                [
+                    {
+                        "node": "Code",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "HTML Extract",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "HTML Extract": {
+            "main": [
+                [
+                    {
+                        "node": "Code1",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Code1": {
+            "main": [
+                [
+                    {
+                        "node": "Set1",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Set1": {
+            "main": [
+                [
+                    {
+                        "node": "HTTP-企业微信推送",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    }
+}

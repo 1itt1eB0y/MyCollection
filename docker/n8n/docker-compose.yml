@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  n8n:
+    image: n8nio/n8n:latest
+    restart: always
+    # network_mode: bridge
+    ports:
+      - "5678:5678"
+    env_file: ./docker.env
+    volumes:
+      # store the config and system data
+      - ./conf:/home/node/.n8n
+      # [Optional] To store the data if you want to use the file node to write/read files
+      - ./data:/data 

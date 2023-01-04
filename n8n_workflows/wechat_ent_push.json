@@ -1,0 +1,637 @@
+{
+    "meta": {
+        "instanceId": "a28af1fb410138f92a8cb25385ad6ef8a3cd8cb729d4117d83ea0075348df164"
+    },
+    "nodes": [
+        {
+            "parameters": {
+                "bucketName": "n8n",
+                "fileKey": "token_tuisong"
+            },
+            "id": "92b1914d-5c5a-4488-8080-eed7b3020914",
+            "name": "读取token缓存",
+            "type": "n8n-nodes-base.s3",
+            "typeVersion": 1,
+            "position": [
+                -140,
+                200
+            ],
+            "credentials": {
+                "s3": {
+                    "id": "2",
+                    "name": "S3 account"
+                }
+            },
+            "continueOnFail": true
+        },
+        {
+            "parameters": {
+                "authentication": "headerAuth",
+                "path": "wechatwork",
+                "responseMode": "responseNode",
+                "options": {
+                    "ignoreBots": true
+                }
+            },
+            "id": "8bc2cd00-bf8c-4026-8a7a-c67a33b43a55",
+            "name": "Webhook-GET",
+            "type": "n8n-nodes-base.webhook",
+            "typeVersion": 1,
+            "position": [
+                -440,
+                -180
+            ],
+            "webhookId": "e700c673-9f48-48d9-8869-0fe3ad9bcf3a",
+            "credentials": {
+                "httpHeaderAuth": {
+                    "id": "3",
+                    "name": "token-1"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "authentication": "headerAuth",
+                "httpMethod": "POST",
+                "path": "wechatwork",
+                "responseMode": "responseNode",
+                "options": {
+                    "ignoreBots": false
+                }
+            },
+            "id": "4eb74db7-7e27-4c5d-9862-52f090cdad11",
+            "name": "Webhook-POST",
+            "type": "n8n-nodes-base.webhook",
+            "typeVersion": 1,
+            "position": [
+                -440,
+                -40
+            ],
+            "webhookId": "88d7d245-82b0-4f5b-a79b-6b279249af18",
+            "credentials": {
+                "httpHeaderAuth": {
+                    "id": "3",
+                    "name": "token-1"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "options": {}
+            },
+            "id": "01b3a906-a4ad-464c-af7e-6a0677e87e35",
+            "name": "S3数据转换",
+            "type": "n8n-nodes-base.moveBinaryData",
+            "typeVersion": 1,
+            "position": [
+                220,
+                220
+            ]
+        },
+        {
+            "parameters": {
+                "method": "POST",
+                "url": "=https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token={{ $json.token }}",
+                "sendBody": true,
+                "specifyBody": "json",
+                "jsonBody": "={{ JSON.stringify($node[\"生成推送payload\"].json.content) }}",
+                "options": {}
+            },
+            "id": "38566d6d-c6da-477f-9a9b-15c50140bb6a",
+            "name": "推送消息",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 3,
+            "position": [
+                380,
+                220
+            ]
+        },
+        {
+            "parameters": {
+                "options": {
+                    "responseCode": 200
+                }
+            },
+            "id": "42198b23-022f-47ad-a6c2-773676145937",
+            "name": "正常推送返回",
+            "type": "n8n-nodes-base.respondToWebhook",
+            "typeVersion": 1,
+            "position": [
+                1040,
+                160
+            ]
+        },
+        {
+            "parameters": {
+                "operation": "upload",
+                "bucketName": "n8n",
+                "fileName": "token_tuisong",
+                "binaryData": false,
+                "fileContent": "={\"token\":\"{{ $json[\"access_token\"] }}\"}",
+                "additionalFields": {
+                    "acl": "private"
+                }
+            },
+            "id": "bca132d2-09eb-486c-9607-cb31099fb50c",
+            "name": "写入token缓存",
+            "type": "n8n-nodes-base.s3",
+            "typeVersion": 1,
+            "position": [
+                80,
+                440
+            ],
+            "credentials": {
+                "s3": {
+                    "id": "2",
+                    "name": "S3 account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "url": "https://qyapi.weixin.qq.com/cgi-bin/gettoken",
+                "sendQuery": true,
+                "queryParameters": {
+                    "parameters": [
+                        {
+                            "name": "corpid",
+                            "value": "wwbd724dbf452811c3"
+                        },
+                        {
+                            "name": "corpsecret",
+                            "value": "FtNTc4AV3kYYor6zfB8BieCeS8Wr1VZ9A4FLaixHUTw"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "id": "72991f97-5ddd-4c32-899f-172e7fba7566",
+            "name": "请求新token",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 3,
+            "position": [
+                -100,
+                440
+            ]
+        },
+        {
+            "parameters": {},
+            "id": "392eecba-867a-404b-b35d-ed3855c46228",
+            "name": "Trigger",
+            "type": "n8n-nodes-base.executeWorkflowTrigger",
+            "typeVersion": 1,
+            "position": [
+                -440,
+                100
+            ]
+        },
+        {
+            "parameters": {
+                "content": "token存活期：7200s=2h\n42001 token过期\n40014 无效token\n\n",
+                "height": 111.67074663402693,
+                "width": 214.38800489596082
+            },
+            "id": "30f95710-1d20-44d2-9e5a-d8b043754947",
+            "name": "Note",
+            "type": "n8n-nodes-base.stickyNote",
+            "typeVersion": 1,
+            "position": [
+                260,
+                -120
+            ]
+        },
+        {
+            "parameters": {
+                "value1": "={{$node[\"推送消息\"].json[\"errcode\"]}}",
+                "rules": {
+                    "rules": [
+                        {
+                            "operation": "equal"
+                        },
+                        {
+                            "operation": "equal",
+                            "value2": 42001,
+                            "output": 1
+                        },
+                        {
+                            "operation": "equal",
+                            "value2": 40014,
+                            "output": 1
+                        }
+                    ]
+                },
+                "fallbackOutput": 3
+            },
+            "id": "85bc824a-41ce-4a99-9137-157ad72d35a5",
+            "name": "推送结果判断",
+            "type": "n8n-nodes-base.switch",
+            "typeVersion": 1,
+            "position": [
+                760,
+                220
+            ]
+        },
+        {
+            "parameters": {
+                "options": {
+                    "responseCode": 400
+                }
+            },
+            "id": "13f4a562-d6f0-480f-b250-4af903734905",
+            "name": "腾讯端报错返回",
+            "type": "n8n-nodes-base.respondToWebhook",
+            "typeVersion": 1,
+            "position": [
+                1040,
+                340
+            ]
+        },
+        {
+            "parameters": {
+                "conditions": {
+                    "string": [
+                        {
+                            "value1": "={{ $json.error }}",
+                            "operation": "isNotEmpty"
+                        }
+                    ]
+                }
+            },
+            "id": "03787073-8203-499c-b9a5-ad173f0ea7f2",
+            "name": "IF",
+            "type": "n8n-nodes-base.if",
+            "typeVersion": 1,
+            "position": [
+                40,
+                200
+            ]
+        },
+        {
+            "parameters": {
+                "content": "https://developer.work.weixin.qq.com/document/path/90236#%E6%96%87%E6%9C%AC%E5%8D%A1%E7%89%87%E6%B6%88%E6%81%AF",
+                "height": 80,
+                "width": 280.4834761321911
+            },
+            "id": "da64e771-c3d2-426b-8fea-0138ac21113c",
+            "name": "Note1",
+            "type": "n8n-nodes-base.stickyNote",
+            "typeVersion": 1,
+            "position": [
+                -220,
+                -380
+            ]
+        },
+        {
+            "parameters": {
+                "content": "https://developer.work.weixin.qq.com/document/path/90236#markdown%E6%B6%88%E6%81%AF",
+                "height": 80,
+                "width": 280.4834761321911
+            },
+            "id": "d3d9879e-5ed2-4b99-a699-5ea2d28280d4",
+            "name": "Note2",
+            "type": "n8n-nodes-base.stickyNote",
+            "typeVersion": 1,
+            "position": [
+                -220,
+                -220
+            ]
+        },
+        {
+            "parameters": {
+                "content": "https://developer.work.weixin.qq.com/document/path/90236#%E6%96%87%E6%9C%AC%E6%B6%88%E6%81%AF",
+                "height": 80,
+                "width": 280.4834761321911
+            },
+            "id": "e1a79ec5-0fe6-47f3-99ec-ed5bada3608d",
+            "name": "Note3",
+            "type": "n8n-nodes-base.stickyNote",
+            "typeVersion": 1,
+            "position": [
+                -220,
+                -300
+            ]
+        },
+        {
+            "parameters": {
+                "keepOnlySet": true,
+                "values": {
+                    "string": [
+                        {
+                            "name": "type",
+                            "value": "={{$json.type ? $json.type : ($json.body.type ? $json.body.type : \"text\") }}"
+                        },
+                        {
+                            "name": "content",
+                            "value": "={{$json.content? $json.content : ($json.body.content ? $json.body.content : $json.query.content) }}"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "id": "1a77d243-5c1a-4d23-b136-00f272e78da5",
+            "name": "初始化传入参数",
+            "type": "n8n-nodes-base.set",
+            "typeVersion": 1,
+            "position": [
+                -200,
+                -40
+            ]
+        },
+        {
+            "parameters": {
+                "keepOnlySet": true,
+                "values": {
+                    "string": [
+                        {
+                            "name": "type",
+                            "value": "={{ $json[\"type\"] }}"
+                        },
+                        {
+                            "name": "content.touser",
+                            "value": "@all"
+                        },
+                        {
+                            "name": "content.toparty",
+                            "value": "@all"
+                        },
+                        {
+                            "name": "content.totag",
+                            "value": "@all"
+                        },
+                        {
+                            "name": "content.msgtype",
+                            "value": "={{ $json[\"type\"] }}"
+                        },
+                        {
+                            "name": "=content.{{ $json[\"type\"] }}{{ $jmespath($json.type,\"contains([`text`,`markdown`],@)\") ? \".content\" : \"\" }}",
+                            "value": "={{ $json.content }}"
+                        }
+                    ],
+                    "number": [
+                        {
+                            "name": "content.agentid",
+                            "value": 1000002
+                        },
+                        {
+                            "name": "content.enable_duplicate_check"
+                        },
+                        {
+                            "name": "content.duplicate_check_interval",
+                            "value": 1800
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "id": "a4a44ad2-6c32-4c9f-8869-0c847d2a6a33",
+            "name": "生成推送payload",
+            "type": "n8n-nodes-base.set",
+            "typeVersion": 1,
+            "position": [
+                -60,
+                -40
+            ]
+        },
+        {
+            "parameters": {
+                "conditions": {
+                    "string": [
+                        {
+                            "value1": "={{ $json.content.msgtype }}",
+                            "operation": "isNotEmpty"
+                        }
+                    ]
+                }
+            },
+            "id": "a77db1ba-c7b1-4014-901e-8c1dd35fbc67",
+            "name": "判断type",
+            "type": "n8n-nodes-base.if",
+            "typeVersion": 1,
+            "position": [
+                80,
+                -40
+            ]
+        },
+        {
+            "parameters": {
+                "content": "```json\n{\n    \"touser\" : \"@all\",\n    \"toparty\" : \"@all\",\n    \"totag\" : \"@all\",\n    \"msgtype\" : \"{{ $json[\"type\"] }}\",\n    \"agentid\" : 1000002,\n    \"{{ $json[\"type\"] }}\" : \n    {{ $jmespath($json.type,\"contains([`text`,`markdown`],@)\") ? \"{content: \" : \"\" }}\n    {{JSON.stringify($json.content)}}\n    {{ $jmespath($json.type,\"contains([`text`,`markdown`],@)\") ? \"}\" : \"\" }},\n    \"enable_duplicate_check\": 0,\n    \"duplicate_check_interval\": 1800\n}\n```",
+                "height": 242.21664626682985,
+                "width": 965.3500611995106
+            },
+            "id": "704149e9-4125-4945-9405-929dfeb776b8",
+            "name": "Note4",
+            "type": "n8n-nodes-base.stickyNote",
+            "typeVersion": 1,
+            "position": [
+                80,
+                -380
+            ]
+        },
+        {
+            "parameters": {
+                "content": "{{ $jmespath($json.type,\"contains([`text`,`markdown`],@)\") ? \"content: \" : \"cc\" }}",
+                "height": 80,
+                "width": 541.1603427172583
+            },
+            "id": "47774aec-9c80-45a1-a24e-6867bf8f152c",
+            "name": "Note5",
+            "type": "n8n-nodes-base.stickyNote",
+            "typeVersion": 1,
+            "position": [
+                500,
+                -120
+            ]
+        },
+        {
+            "parameters": {
+                "respondWith": "json",
+                "responseBody": "={\n\"errcode\":400,\n\"errmsg\":\"tpye missing\"\n}",
+                "options": {
+                    "responseCode": 400
+                }
+            },
+            "id": "ff5b741a-6a0a-4198-9808-2a8e444f33f1",
+            "name": "类型缺失",
+            "type": "n8n-nodes-base.respondToWebhook",
+            "typeVersion": 1,
+            "position": [
+                1040,
+                -20
+            ]
+        }
+    ],
+    "connections": {
+        "读取token缓存": {
+            "main": [
+                [
+                    {
+                        "node": "IF",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Webhook-GET": {
+            "main": [
+                [
+                    {
+                        "node": "初始化传入参数",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Webhook-POST": {
+            "main": [
+                [
+                    {
+                        "node": "初始化传入参数",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "S3数据转换": {
+            "main": [
+                [
+                    {
+                        "node": "推送消息",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "推送消息": {
+            "main": [
+                [
+                    {
+                        "node": "推送结果判断",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "写入token缓存": {
+            "main": [
+                [
+                    {
+                        "node": "读取token缓存",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "请求新token": {
+            "main": [
+                [
+                    {
+                        "node": "写入token缓存",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Trigger": {
+            "main": [
+                [
+                    {
+                        "node": "初始化传入参数",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "推送结果判断": {
+            "main": [
+                [
+                    {
+                        "node": "正常推送返回",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "请求新token",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                null,
+                [
+                    {
+                        "node": "腾讯端报错返回",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "IF": {
+            "main": [
+                [
+                    {
+                        "node": "请求新token",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "S3数据转换",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "初始化传入参数": {
+            "main": [
+                [
+                    {
+                        "node": "生成推送payload",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "生成推送payload": {
+            "main": [
+                [
+                    {
+                        "node": "判断type",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "判断type": {
+            "main": [
+                [
+                    {
+                        "node": "读取token缓存",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "类型缺失",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    }
+}

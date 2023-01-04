@@ -8,9 +8,9 @@ ruby license.rb
 ```
 生成三个文件`GitLabBV.gitlab-license`，`license_key`，`license_key.pub`，将三个文件复制出来到`/crack`下保存备用。
 
-`license_key.pub` 替换 `/opt/gitlab/embedded/service/gitlab-rails/.license_encryption_key.pub`
+* `license_key.pub` 替换 `/opt/gitlab/embedded/service/gitlab-rails/.license_encryption_key.pub`
 
-`GitLabBV.gitlab-license` 填入许可证中。针对新版本Gitlab-EE，对应设置路径在：`/admin/application_settings/general`最后一个选项中，或`管理员→设置→通用→添加许可证`
+* `GitLabBV.gitlab-license` 填入许可证中。针对新版本Gitlab-EE，对应设置路径在：`/admin/application_settings/general`最后一个选项中，或`管理员→设置→通用→添加许可证`
 
 ## 修改等级
 `/opt/gitlab/embedded/service/gitlab-rails/ee/app/models/license.rb`
@@ -21,9 +21,10 @@ ruby license.rb
   +    restricted_attr(:plan).presence || ULTIMATE_PLAN
 ```
 
-可用命令
-> 本目录下Dockerfile已集成该命令，仅需自行生成证书即可
+也可以用命令实现替换
 ```bash
 docker exec gitlab \
     sed -i 's/restricted_attr(:plan).presence || STARTER_PLAN/restricted_attr(:plan).presence || ULTIMATE_PLAN/g' /opt/gitlab/embedded/service/gitlab-rails/ee/app/models/license.rb
 ```
+
+本目录下`Dockerfile`已集成该命令，Actions自动编译亦使用该`Dockerfile`，仅需自行生成证书即可

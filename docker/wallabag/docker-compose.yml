@@ -1,0 +1,29 @@
+version: '3'
+services:
+  wallabag:
+    image: wallabag/wallabag
+    environment:
+      - MYSQL_ROOT_PASSWORD=a881df5eb0776e663a
+      - SYMFONY__ENV__DATABASE_DRIVER=pdo_mysql
+      - SYMFONY__ENV__DATABASE_HOST=databases_mysql_1
+      - SYMFONY__ENV__DATABASE_PORT=3306
+      - SYMFONY__ENV__DATABASE_NAME=wallabag
+      - SYMFONY__ENV__DATABASE_USER=wallabag
+      - SYMFONY__ENV__DATABASE_PASSWORD=76uSliPbp1tX85Ek
+      - SYMFONY__ENV__DATABASE_CHARSET=utf8mb4
+      - SYMFONY__ENV__MAILER_HOST=smtp.qq.com
+      - SYMFONY__ENV__MAILER_USER=2596346859@qq.com
+      - SYMFONY__ENV__MAILER_PASSWORD=vftjwqonmxdvdjae
+      - SYMFONY__ENV__FROM_EMAIL=2596346859@qq.com
+      - SYMFONY__ENV__DOMAIN_NAME=http://wallabag.lan
+      # - SYMFONY__ENV__SERVER_NAME="Your wallabag instance"
+    # network_mode: bridge
+    ports:
+      - "8004:80"
+    volumes:
+      - /share/Docker/wallabag/images:/var/www/wallabag/web/assets/images
+      - /share/Docker/wallabag/data:/var/www/wallabag/data
+    healthcheck:
+      test: ["CMD", "wget" ,"--no-verbose", "--tries=1", "--spider", "http://localhost"]
+      interval: 1m
+      timeout: 3s

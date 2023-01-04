@@ -1,0 +1,11 @@
+version: '3.3'
+services:
+  dashy:
+    ports:
+      - '8000:80'
+    volumes:
+      - './conf.yml:/app/public/conf.yml'
+    container_name: my-dashboard
+    # network_mode: bridge
+    restart: always
+    image: 'lissy93/dashy:latest'

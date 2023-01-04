@@ -1,0 +1,354 @@
+{
+    "meta": {
+        "instanceId": "4a8cab23f806ec1b8962adc8b94bc2de1287b6bd6da9fa513b898bbb78d6782b"
+    },
+    "nodes": [
+        {
+            "parameters": {
+                "url": "https://mp.bookln.cn/q?c=120DCKXYB09",
+                "sendHeaders": true,
+                "headerParameters": {
+                    "parameters": [
+                        {
+                            "name": "User-Agent",
+                            "value": "Mozilla/5.0 (Linux; Android 11; SAMSUNG SM-G973U) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/14.2 Chrome/87.0.4280.141 Mobile Safari/537.36"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "id": "6247042e-506f-4361-9f04-cfd06b175340",
+            "name": "HTTP Request",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 3,
+            "position": [
+                1480,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "extractionValues": {
+                    "values": [
+                        {
+                            "key": "urls",
+                            "cssSelector": ".sections div.section-wrapper",
+                            "returnValue": "attribute",
+                            "attribute": "val",
+                            "returnArray": true
+                        },
+                        {
+                            "key": "title",
+                            "cssSelector": "head > title:nth-child(2)"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "id": "da4fb429-5379-46c3-86d6-dcb2188a65d0",
+            "name": "HTML Extract",
+            "type": "n8n-nodes-base.htmlExtract",
+            "typeVersion": 1,
+            "position": [
+                1660,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "url": "=https://qr.bookln.cn{{ $json[\"urls\"][0] }}",
+                "sendHeaders": true,
+                "headerParameters": {
+                    "parameters": [
+                        {
+                            "name": "User-Agent",
+                            "value": "Mozilla/5.0 (Linux; Android 11; SAMSUNG SM-G973U) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/14.2 Chrome/87.0.4280.141 Mobile Safari/537.36"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "id": "c3d9b2c8-a9da-4d37-a6bd-82f87efe4ba1",
+            "name": "HTTP Request1",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 3,
+            "position": [
+                1980,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "fileName": "=/data/{{ $node[\"HTML Extract\"].json[\"title\"] }}/{{ $node[\"Set\"].json[\"num\"] }}{{ $json[\"name\"] }}.mp3",
+                "options": {}
+            },
+            "id": "da376389-989c-4509-84b4-9c121b34c842",
+            "name": "Write Binary File",
+            "type": "n8n-nodes-base.writeBinaryFile",
+            "typeVersion": 1,
+            "position": [
+                2480,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "keepOnlySet": true,
+                "values": {
+                    "string": [
+                        {
+                            "name": "urls",
+                            "value": "={{ $json[\"urls\"].slice(1,) }}"
+                        }
+                    ],
+                    "number": [
+                        {
+                            "name": "num",
+                            "value": "={{ $json[\"num\"] + 1 }}"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "id": "797ebeaa-e89f-4e8b-a84f-175f6b8e1532",
+            "name": "Set",
+            "type": "n8n-nodes-base.set",
+            "typeVersion": 1,
+            "position": [
+                2040,
+                480
+            ]
+        },
+        {
+            "parameters": {
+                "extractionValues": {
+                    "values": [
+                        {
+                            "key": "name",
+                            "cssSelector": "head > title:nth-child(2)"
+                        },
+                        {
+                            "key": "audio_url",
+                            "cssSelector": "#audio_media",
+                            "returnValue": "attribute",
+                            "attribute": "src"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "id": "a7ff2cf1-2134-4f43-922e-9d267f046aa2",
+            "name": "HTML Extract1",
+            "type": "n8n-nodes-base.htmlExtract",
+            "typeVersion": 1,
+            "position": [
+                2160,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "url": "={{ $json[\"audio_url\"] }}",
+                "sendHeaders": true,
+                "headerParameters": {
+                    "parameters": [
+                        {
+                            "name": "User-Agent",
+                            "value": "Mozilla/5.0 (Linux; Android 11; SAMSUNG SM-G973U) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/14.2 Chrome/87.0.4280.141 Mobile Safari/537.36"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "id": "1f672a9c-8739-461c-a662-b7c099fb9a4b",
+            "name": "HTTP Request3",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 3,
+            "position": [
+                2320,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "conditions": {
+                    "string": [
+                        {
+                            "value1": "={{ $json[\"urls\"][0] }}",
+                            "operation": "isNotEmpty"
+                        }
+                    ]
+                }
+            },
+            "id": "293d3e27-8047-429e-aa4d-a391028dd25f",
+            "name": "IF",
+            "type": "n8n-nodes-base.if",
+            "typeVersion": 1,
+            "position": [
+                2200,
+                480
+            ]
+        },
+        {
+            "parameters": {
+                "command": "=mkdir /data/{{ $node[\"HTML Extract\"].json[\"title\"] }}"
+            },
+            "id": "3b80d1b9-68de-4676-9634-62fa9fc6b861",
+            "name": "Execute Command",
+            "type": "n8n-nodes-base.executeCommand",
+            "typeVersion": 1,
+            "position": [
+                1700,
+                560
+            ]
+        },
+        {
+            "parameters": {
+                "values": {
+                    "number": [
+                        {
+                            "name": "num",
+                            "value": -1
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "id": "fdd47fc3-4fda-4235-9d66-b5f4e93be6e4",
+            "name": "Set1",
+            "type": "n8n-nodes-base.set",
+            "typeVersion": 1,
+            "position": [
+                1820,
+                300
+            ]
+        },
+        {
+            "parameters": {},
+            "id": "5d28544a-a238-46d8-bdfb-92bf2d8ca9f3",
+            "name": "When clicking \"Execute Workflow\"",
+            "type": "n8n-nodes-base.manualTrigger",
+            "typeVersion": 1,
+            "position": [
+                1300,
+                300
+            ]
+        }
+    ],
+    "connections": {
+        "HTTP Request": {
+            "main": [
+                [
+                    {
+                        "node": "HTML Extract",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "HTML Extract": {
+            "main": [
+                [
+                    {
+                        "node": "Execute Command",
+                        "type": "main",
+                        "index": 0
+                    },
+                    {
+                        "node": "Set1",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "HTTP Request1": {
+            "main": [
+                [
+                    {
+                        "node": "HTML Extract1",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Set": {
+            "main": [
+                [
+                    {
+                        "node": "IF",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "HTML Extract1": {
+            "main": [
+                [
+                    {
+                        "node": "HTTP Request3",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "HTTP Request3": {
+            "main": [
+                [
+                    {
+                        "node": "Write Binary File",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "IF": {
+            "main": [
+                [
+                    {
+                        "node": "Set",
+                        "type": "main",
+                        "index": 0
+                    },
+                    {
+                        "node": "HTTP Request1",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Set1": {
+            "main": [
+                [
+                    {
+                        "node": "HTTP Request1",
+                        "type": "main",
+                        "index": 0
+                    },
+                    {
+                        "node": "Set",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "When clicking \"Execute Workflow\"": {
+            "main": [
+                [
+                    {
+                        "node": "HTTP Request",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    }
+}

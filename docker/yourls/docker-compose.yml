@@ -1,0 +1,16 @@
+version: '3.1'
+services:
+  yourls:
+    image: yourls
+    restart: always
+    ports:
+      - 3000:80
+    # network_mode: bridge
+    environment:
+      YOURLS_DB_USER: user
+      YOURLS_DB_PASS: password
+      YOURLS_DB_HOST: 127.0.0.1
+      YOURLS_DB_NAME: yourls
+      YOURLS_SITE: http://yourls.local:3000
+      YOURLS_USER: root
+      YOURLS_PASS: passwd

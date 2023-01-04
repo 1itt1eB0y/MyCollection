@@ -1,0 +1,19 @@
+version: "3"
+services:
+  syncthing:
+    image: syncthing/syncthing
+    container_name: syncthing
+    hostname: my-syncthing
+    # network_mode: bridge
+    environment:
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - /share/Docker/syncthing/config:/var/syncthing
+      - /share/Storage/NetBack:/share/Storage/NetBack
+    ports:
+      - 8384:8384 # Web UI
+      - 22000:22000/tcp # TCP file transfers
+      - 22000:22000/udp # QUIC file transfers
+      - 21027:21027/udp # Receive local discovery broadcasts
+    restart: always

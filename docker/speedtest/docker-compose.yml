@@ -1,0 +1,9 @@
+version: '3.3'
+services:
+    watchtower:
+        container_name: speedtest
+        image: adolfintel/speedtest:latest
+        # network_mode: bridge
+        restart: always
+        ports:
+            - 8844:80
