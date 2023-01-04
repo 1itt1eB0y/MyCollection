@@ -14,13 +14,16 @@ Welcome for your advice and issue.
 * 由于本人网络环境问题，与多stack导致的巨多网段的问题，所以在`docker-compose.yml`中，所有的`network_mode`都被设置为`bridge`，并且**应该**都被我注释掉了，如果你的网络环境没有问题，可以自行修改。
 * 部分`docker-compose.yml`中的`docker.env`推荐重命名为`.docker.env`的格式，这样可以避免一些不必要的问题，但是本人由于不想让文件隐藏，所以没有这么做。
 * 列表中的绝大多数都是我现在正在使用的服务，绝大多数都是对比过同类产品后的较优选择。
-==
+
+==============================
+
 * Due to the problem of my network environment and the huge number of network segments caused by multiple stacks, in `docker-compose.yml`, all `network_mode` are set to `bridge`, and **should** be commented out by me. If your network environment is fine, you can modify it yourself.
 * Some `docker.env` in `docker-compose.yml` are recommended to be renamed to `.docker.env` format, which can avoid some unnecessary problems, but I don't want to hide the file, so I didn't do it.
 * Most of the services in the list are the ones I am currently using, and most of them are the better choice after comparing with the same products. 
 ---
 ## 目录|Catalog
 * [dashy](dashy/) | [Source Code](https://github.com/Lissy93/dashy), [Official Website](https://dashy.to/)
+
     一个可以直接在WEB界面编辑的Dashboard，可以方便的管理多个网站并进行导航。
     A self-hostable personal dashboard built for you. Includes status-checking, widgets, themes, icon packs, a UI editor and tons more!
 
