@@ -24,7 +24,7 @@ Welcome for your advice and issue.
 ## 目录|Catalog
 * [dashy](dashy/) | [Source Code](https://github.com/Lissy93/dashy), [Official Website](https://dashy.to/)
 
-    一个可以直接在WEB界面编辑的Dashboard，可以方便的管理多个网站并进行导航。
+    可以直接在WEB界面编辑的Dashboard，可以方便的管理多个网站并进行导航。
     
     A self-hostable personal dashboard built for you. Includes status-checking, widgets, themes, icon packs, a UI editor and tons more!
 
@@ -66,13 +66,13 @@ Welcome for your advice and issue.
 
 * [keycloak](keycloak/) | [Source Code](https://github.com/keycloak/keycloak), [Official Website](https://www.keycloak.org/)
     
-    一款开源的OIDC服务器，支持SAML,LDAP,OAuth2等认证方式，具有WEB界面和丰富的功能，可以实现多种需求。
+    OIDC服务器，支持SAML,LDAP,OAuth2等认证方式，具有WEB界面和丰富的功能，可以实现多种需求。
     
     An open source OIDC server, supporting SAML, LDAP, OAuth2 and other authentication methods, with a WEB interface and rich features, can achieve a variety of needs.
     
 * [memos](memos/) | [Source Code](https://github.com/usememos/memos), [Official Website](https://usememos.com/)
     
-    一款开源的每日随手笔记，类似微博，个人版，可以快速形成当日记录。
+    每日随手笔记，类似微博，个人版，可以快速形成当日记录。
     
     An open source daily casual note, similar to Weibo, personal version, can quickly form daily records.
 
@@ -84,43 +84,55 @@ Welcome for your advice and issue.
 
 * [minio](minio/) | [Source Code](https://github.com/minio/minio), [Official Website](https://min.io/)
     
-    开源的AWS S3兼容服务，可以作为本地搭建的AWS S3或COS服务器。
+    AWS S3兼容服务，可以作为本地搭建的AWS S3或COS服务器。
     
     An open source AWS S3 compatible service, can be used as a local AWS S3 or COS server.
 
 * [n8n](n8n/) | [Source Code](https://github.com/n8n-io/n8n), [Official Website](https://n8n.io/)
     
-    一款开源的工作流引擎，可以通过可视化的方式实现各种自动化任务，功能强大。
+    工作流引擎，可以通过可视化的方式实现各种自动化任务，功能强大。
     
     An open source workflow engine that can achieve various automation tasks through visualized ways, and it's powerful.
 
+* [nextcloud](nextcloud/) | [Source Code](https://github.com/nextcloud/docker), [Official Website](https://nextcloud.com/)
+    
+    免费开源私有云，功能相对丰富，可以实现文件同步，日历，通讯录，在线即时聊天等功能。但是代码效率相对有些低，相对而言其优势在于具有大量的社区插件可以提供更加丰富的功能。
+
+    Free open source private cloud, relatively rich in features, can achieve file synchronization, calendar, address book, online instant messaging and other functions. But the code efficiency is relatively low, and the advantage is that it has a large number of community plug-ins that can provide more rich functions.
+
 * [nginx-proxy-manager](nginxproxymanager/) | [Source Code](https://github.com/NginxProxyManager/nginx-proxy-manager), [Official Website](https://nginxproxymanager.com/)
     
-    一个WEB界面的Nginx反向代理管理器，可以方便的管理多个反向代理。
+    WEB界面的Nginx反向代理管理器，可以方便的管理多个反向代理。
     
     A WEB interface Nginx reverse proxy manager, which can easily manage multiple reverse proxies.
 
 * [outline](outline/) | [Source Code](https://github.com/outline/outline), [Official Website]()
     
-    一款开源的团队协作Wiki，搭建相对复杂，但是具有较为现代的界面和完善的功能。
+    团队协作Wiki，搭建相对复杂，但是具有较为现代的界面和完善的功能。
     
     An open source team collaboration Wiki, which is relatively complex to build, but has a more modern interface and complete functions.
 
+* [plex](plex/) | [Source Code](https://github.com/plexinc/pms-docker), [Official Website](https://www.plex.tv/)
+    
+    Plex是一个多媒体管理系统，可以实现多个设备之间的同步，支持多种格式的视频，音乐，图片等。
+    
+    Plex is a multimedia management system that can achieve synchronization between multiple devices, and supports various formats of video, music, pictures, etc.
+
 * [shuize](shuize/) | [Source Code](https://github.com/0x727/ShuiZe_0x727), [Official Website]()
     
-    水泽，由0x727团队开源的信息收集自动化工具。
+    水泽，由0x727团队信息收集自动化工具。
     
     Shuize, an information collection automation tool open sourced by the 0x727 team.
 
 * [speedtest](speedtest/) | [Source Code](https://github.com/librespeed/speedtest), [Official Website](https://librespeed.org/)
     
-    一款开源的Speedtest工具，可以测试上传和下载速度。
+    Speedtest工具，可以测试上传和下载速度。
     
     An open source Speedtest tool that can test upload and download speeds.
 
 * [stash](stash/) | [Source Code](https://github.com/librespeed/speedtest), [Official Website](https://stashapp.cc/)
     
-    R18影片管理工具，不过作为一款媒体库管理软件，功能还是十分强大的，不一定只能用来存R18，用于标记、分类、查重其他各类媒体文件也是不错的选择。
+    R18影片管理工具，不过作为媒体库管理软件，功能还是十分强大的，不一定只能用来存R18，用于标记、分类、查重其他各类媒体文件也是不错的选择。
     
     R18 video management tool, but as a media library management software, the function is still very powerful, not necessarily only to store R18, to mark, classify, duplicate other types of media files is also a good choice.
 
@@ -130,6 +142,17 @@ Welcome for your advice and issue.
     
     File synchronization tool that can achieve cross-platform file synchronization between multiple devices.
 
+* [uptime-kuma](uptime-kuma/) | [Source Code](https://github.com/louislam/uptime-kuma), [Official Website](https://louislam.net/uptime-kuma/)
+    
+    服务监控工具，用于检查指定的服务/端口是否在正常运行或证书是否即将过期，内嵌了多种通知方式。
+    
+    A service monitoring tool for checking whether a specified service/port is running normally or whether a certificate is about to expire, with multiple built-in notification methods.
+
+* [vaultwarden](vaultwarden/) | [Source Code](https://github.com/dani-garcia/vaultwarden), [Official Website](https://vaultwarden.net/)
+    
+    密码管理器Bitwarden的第三方开源服务器，借助官方的客户端和浏览器插件就可以实现Bitwarden的全功能。
+    A third-party open-source server for password manager Bitwarden can be used to access all of Bitwarden's features through the official client and browser plugin.
+
 * [wallabag](wallabag/) | [Source Code](https://github.com/wallabag/wallabag), [Official Website](https://www.wallabag.org/)
     
     用于保存和分类网页的开源工具，可以保存为多种格式，同时支持RSS，可以在RSS客户端上直接进行阅读。
@@ -138,7 +161,7 @@ Welcome for your advice and issue.
 
 * [watchtower](watchtower/) | [Source Code](https://github.com/containrrr/watchtower), [Official Website](https://containrrr.dev/watchtower/)
     
-    一个自动更新Docker容器的工具，可以自动检测并更新Docker容器。
+    自动更新Docker容器的工具，可以自动检测并更新Docker容器。
     
     A tool for automatically updating Docker containers, which can automatically detect and update Docker containers.
 

@@ -1,0 +1,18 @@
+version: "2.1"
+services:
+  nextcloud:
+    image: linuxserver/nextcloud:latest
+    container_name: nextcloud
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Shanghai
+    volumes:
+      - ./config:/config
+      - ./data:/data
+    ports:
+      - 10.10.0.1:1443:443
+      - 10.10.0.1:3478:3478
+      - 10.10.0.1:3478:3478/udp
+    restart:
+      "always"

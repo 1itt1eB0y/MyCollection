@@ -1,0 +1,17 @@
+version: '2'
+services:
+  plex:
+    container_name: plex
+    image: plexinc/pms-docker
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      - TZ=Asia/Shanghai
+      # - PLEX_CLAIM=<claimToken>
+      # - ADVERTISE_IP=http://10.10.0.1:32400/
+    hostname: plex
+    volumes:
+      - ./config:/config
+      - ./transcode:/transcode
+      - ./cert:/cert
+      - ./music:/music

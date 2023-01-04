@@ -1,0 +1,20 @@
+version: "2"
+services:
+  vaultwarden:
+    container_name: vaultwarden
+    # network_mode: bridge
+    environment:
+        #- DOMAIN=https://example.com:50443
+      - WEB_VAULT_ENABLED=false
+      - SIGNUPS_ALLOWED=false
+      - WEBSOCKET_ENABLED=true
+      - LOG_FILE=/data/bitwarden.log
+        #- ROCKET_TLS={certs="/ssl/fullchain1.pem",key="/ssl/privkey.pem"}
+        #- ROCKET_PORT=80
+    image: vaultwarden/server:latest
+    ports:
+      - 80:80/tcp
+      - 80:80/tcp
+    volumes:
+      - ./vw-data:/data
+      - ./ssl:/ssl
