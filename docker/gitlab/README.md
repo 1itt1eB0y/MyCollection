@@ -28,3 +28,6 @@ docker exec gitlab \
 ```
 
 本目录下`Dockerfile`已集成该命令，Actions自动编译亦使用该`Dockerfile`，仅需自行生成证书即可
+
+
+![图片](https://user-images.githubusercontent.com/29831189/218073747-ab6e6701-463d-4103-8c7e-74c6febdbe4f.png)
