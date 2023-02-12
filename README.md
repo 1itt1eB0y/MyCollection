@@ -19,6 +19,10 @@
 
 Text in English will be come ***very*** soon.
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=1itt1eB0y/MyCollection&type=Date)](https://star-history.com/#1itt1eB0y/MyCollection&Date)
+
 
 ## Collection List
 
