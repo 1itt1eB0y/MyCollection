@@ -21,6 +21,10 @@ This folder stores the files I use for my own docker builds, and the **English v
 ```
 Text in English will be come ***very?*** |soon.
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=1itt1eB0y/MyCollection&type=Date)](https://star-history.com/#1itt1eB0y/MyCollection&Date)
+
 
 ## Collection List
 
@@ -70,7 +74,8 @@ Text in English will be come ***very?*** |soon.
 |**Gitea** |✨👓 | 🖥 | 极易安装且运行快速的自建 Git 服务，由 Go 语言开发，轻量快速，适合各种机型。|[官网](https://gitea.io/en-us/)|
 
 
-### Hack
-| 名称 | 标识 | 平台支持 | 说明 | 链接 |
-| --- | --- | --- | --- | --- |
-|**mimipenguin** | 👓 | 🐧 | 一款开源的Linux密码获取工具，可以通过内存中的密码获取Linux用户的密码。但是必须有GUI操作界面。|[Github](https://github.com/huntergregal/mimipenguin)|
+* **Portainer** ✨👓💸 | 🖥 | 一款开源的Docker管理工具，可以通过Web界面管理Docker容器，支持Docker Swarm，Kubernetes等等，官方提供5节点内免费的商业版许可证，可以直接使用全功能。[官网](https://www.portainer.io/)
+* **Nextcloud** ✨👓 | 🔱 | 一款开源的私有云，可以自建私有的云盘，文件同步，日历，通讯录，邮件等等。[官网](https://nextcloud.com/)
+* **Technitium DnsServer** ✨👓 | 🖥 | 一款开源的WEB界面DNS服务器，可以自建DNS服务器，支持DoH，DoT，DNSCrypt等等。同时也可以作为DNS缓存和过滤服务器使用，屏蔽广告，追踪器等等。[官网](https://technitium.com/dns/) 源码：[GitHub](https://github.com/TechnitiumSoftware/DnsServer)
+* **HomeAssistant** ✨👓 | 🔱 | 一款开源的智能家居软件，可以通过插件的方式集成各种智能设备，如：空调，灯，电视，摄像头，门锁，传感器等等。[官网](https://www.home-assistant.io/)
+* **stash** ✨👓 | 🔱 | 一款开源的Porn媒体管理器，可以自建个人的媒体库，支持各种格式的视频，图片，还有相当完善的功能，其实作为一个普通的个人媒体管理库也是完全OK的，在某些方面会比Plex、Emby、Jellyfin之类的更有优势。[官网](https://stashapp.cc/)
