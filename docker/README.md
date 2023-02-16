@@ -136,11 +136,29 @@ Welcome for your advice and issue.
     
     R18 video management tool, but as a media library management software, the function is still very powerful, not necessarily only to store R18, to mark, classify, duplicate other types of media files is also a good choice.
 
+* [synapse](synapse/) | [Source Code](https://github.com/matrix-org/synapse), [Official Website](https://matrix-org.github.io/synapse)
+    
+    Synapse：用 Python/Twisted 编写的 Matrix 家庭服务器。可用于自建Matrix服务器。
+    
+    Synapse: Matrix homeserver written in Python/Twisted. Can be used to build a Matrix server.
+
 * [syncthing](syncthing/) | [Source Code](https://github.com/syncthing/syncthing), [Official Website](https://syncthing.net/)
     
     文件同步工具，可以实现多台设备之间的跨平台文件同步。
     
     File synchronization tool that can achieve cross-platform file synchronization between multiple devices.
+
+* [tachidesk](tachidesk/) | [Source Code](https://github.com/Suwayomi/Tachidesk-Server)
+    
+    Tachidesk是一个开源的Manga阅读器，可以实现Manga的在线阅读，下载，管理等功能，属于Tachiyomi的一个第三方开源重构版本，可以通过插件与Tachiyomi联动。
+    
+    Tachidesk is an open source Manga reader that can achieve online reading, download, management and other functions of Manga, which is a third-party open source reconstruction version of Tachiyomi. It can be linked with Tachiyomi through plug-ins.
+
+* [teamspeak](teamspeak/) | [Official Website](https://www.teamspeak.com/)
+    
+    语音聊天工具，可以实现多人语音聊天，支持多种平台。免费版本最多支持30人同时连接到同一服务器，付费版本可以支持更多人同时连接。
+    
+    Voice chat tool that can achieve multi-person voice chat, and supports multiple platforms. The free version supports up to 30 people connecting to the same server at the same time, and the paid version can support more people connecting at the same time.
 
 * [uptime-kuma](uptime-kuma/) | [Source Code](https://github.com/louislam/uptime-kuma), [Official Website](https://louislam.net/uptime-kuma/)
     

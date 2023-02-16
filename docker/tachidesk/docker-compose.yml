@@ -1,0 +1,13 @@
+version: '3'
+services:
+  tachidesk:
+    image: 1itt1eb0y/ghcr.io.suwayomi.tachidesk:latest
+    container_name: tachidesk
+    network_mode: bridge
+    restart: unless-stopped
+    ports:
+      - 4567:4567
+    volumes:
+      - ./data:/home/suwayomi/.local/share/Tachidesk
+    environment:
+      - TZ=Asia/Shanghai

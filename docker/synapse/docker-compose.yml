@@ -1,0 +1,12 @@
+# maybe need to be modified to run properly on your system
+version: "3"
+services:
+  synapse:
+    image: matrixdotorg/synapse
+    restart: always
+    network_mode: bridge
+    ports:
+      - "8008:8008"
+      - "8448:8448"
+    volumes:
+      - ./data:/data
