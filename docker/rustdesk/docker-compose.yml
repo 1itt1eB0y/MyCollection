@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  rustdesk-server:
+    container_name: rustdesk-server
+    ports:
+      - 21115:21115
+      - 21116:21116
+      - 21116:21116/udp
+      - 21117:21117
+      - 21118:21118
+      - 21119:21119
+    image: rustdesk/rustdesk-server-s6:latest
+    network_mode: bridge
+    environment:
+      - "RELAY=1.1.1.1:21117"
+      - "ENCRYPTED_ONLY=1"
+    volumes:
+      - ./data:/data
+    restart: always
