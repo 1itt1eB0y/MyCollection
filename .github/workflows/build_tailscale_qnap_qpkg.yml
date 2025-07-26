@@ -1,0 +1,74 @@
+name: Build Tailscale QNAP QPKG
+
+on:
+  schedule:
+    # 每周一 3:00 UTC 检查一次
+    - cron: '0 3 * * 1'
+  workflow_dispatch: # 允许手动点击启动
+
+jobs:
+  check-and-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout workflow repo
+        uses: actions/checkout@v4
+
+      - name: Fetch latest Tailscale release
+        id: tailscale_release
+        run: |
+          latest_tag=$(curl -s https://api.github.com/repos/tailscale/tailscale/releases/latest | jq -r .tag_name)
+          echo "Latest Tailscale tag: $latest_tag"
+          echo "latest_tag=$latest_tag" >> $GITHUB_ENV
+
+      - name: Check last built version
+        id: check_last_build
+        run: |
+          if [ -f .last_built_version ]; then
+            last_built=$(cat .last_built_version)
+            echo "Last built version: $last_built"
+          else
+            last_built=""
+          fi
+          echo "last_built=$last_built" >> $GITHUB_ENV
+
+      - name: Decide whether to build
+        id: should_build
+        run: |
+          if [ "$latest_tag" != "$last_built" ]; then
+            echo "need_build=true" >> $GITHUB_ENV
+          else
+            echo "need_build=false" >> $GITHUB_ENV
+          fi
+
+      - name: Clone tailscale source
+        if: env.need_build == 'true' || github.event_name == 'workflow_dispatch'
+        run: |
+          git clone --branch ${{ env.latest_tag }} https://github.com/tailscale/tailscale.git
+
+      - name: Build QPKG Package
+        if: env.need_build == 'true' || github.event_name == 'workflow_dispatch'
+        run: |
+          chmod +x ./build-qpkg.sh
+          ./build-qpkg.sh ${{ env.latest_tag }}
+
+      - name: Save built version
+        if: env.need_build == 'true'
+        run: |
+          echo "${{ env.latest_tag }}" > .last_built_version
+
+      - name: Upload QPKG artifact
+        if: env.need_build == 'true' || github.event_name == 'workflow_dispatch'
+        uses: actions/upload-artifact@v4
+        with:
+          name: tailscale-qpkg-${{ env.latest_tag }}
+          path: ./output/tailscale-*.qpkg
+
+      # 可选：自动发布 release
+      # - name: Create GitHub Release
+      #   if: env.need_build == 'true' || github.event_name == 'workflow_dispatch'
+      #   uses: softprops/action-gh-release@v2
+      #   with:
+      #     tag_name: ${{ env.latest_tag }}
+      #     name: "Tailscale QPKG ${{ env.latest_tag }}"
+      #     files: ./output/tailscale-*.qpkg
