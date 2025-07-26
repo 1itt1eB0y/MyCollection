@@ -11,9 +11,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout workflow repo
-        uses: actions/checkout@v4
-
       - name: Fetch latest Tailscale release
         id: tailscale_release
         run: |
@@ -46,11 +43,11 @@ jobs:
         run: |
           git clone --branch ${{ env.latest_tag }} https://github.com/tailscale/tailscale.git
 
-      - name: Build QPKG Package
+      - name: Build QNAP QPKG Package
         if: env.need_build == 'true' || github.event_name == 'workflow_dispatch'
         run: |
-          chmod +x ./build-qpkg.sh
-          ./build-qpkg.sh ${{ env.latest_tag }}
+          cd tailscale
+          ./tool/go run ./cmd/dist build qnap
 
       - name: Save built version
         if: env.need_build == 'true'
@@ -62,13 +59,13 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: tailscale-qpkg-${{ env.latest_tag }}
-          path: ./output/tailscale-*.qpkg
+          path: tailscale/dist/*.qpkg
 
       # 可选：自动发布 release
-      # - name: Create GitHub Release
-      #   if: env.need_build == 'true' || github.event_name == 'workflow_dispatch'
-      #   uses: softprops/action-gh-release@v2
-      #   with:
-      #     tag_name: ${{ env.latest_tag }}
-      #     name: "Tailscale QPKG ${{ env.latest_tag }}"
-      #     files: ./output/tailscale-*.qpkg
+      - name: Create GitHub Release
+        if: env.need_build == 'true' || github.event_name == 'workflow_dispatch'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.latest_tag }}
+          name: "Tailscale QPKG ${{ env.latest_tag }}"
+          files: tailscale/dist/*.qpkg
